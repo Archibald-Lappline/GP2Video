@@ -1,98 +1,96 @@
 # ScoreFrame
 
-ScoreFrame is a multi-track Guitar Pro sheet music video generator with synchronized SoundFont MIDI and audio track playback, live video preview, transparent background export, and automated Windows `.exe` packaging via Electron and GitHub Actions.
+ScoreFrame turns Guitar Pro and MusicXML scores into sheet music videos. It renders notation with [alphaTab](https://www.alphatab.net/), plays it back with a bundled SoundFont synthesizer and optional backing audio, and exports the result as a WebM or MP4 file. Everything runs locally in the browser or in a Windows desktop app built with Electron.
 
 ## Features
 
-- **Guitar Pro & Sheet Music Import**: Supports `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp8`, `.xml`, `.musicxml`, `.mxl`, and `.cap` files.
-- **Multi-Track Selection**: Select one or multiple notation tracks simultaneously with independent mute, solo, and volume controls.
-- **Synchronized Audio Engine**: Combines bundled SoundFont (`sonivox.sf2` / `sonivox.sf3`) synthesis with embedded Guitar Pro backing tracks and external audio files (`.mp3`, `.wav`, `.ogg`, `.flac`, `.m4a`).
-- **Live Video Preview & Customization**: Preview the rendered video canvas in real time with automatic updates for themes, transparent backgrounds, accent highlighting, display modes (`Score + Tab`, `Score`, `Tab`), resolution, FPS, bar range, and metronome options.
-- **Video Export**: Exports synchronized sheet music videos as WebM or MP4 directly in the browser or desktop app.
-- **Windows Desktop App (`.exe`)**: Packages as both an NSIS installer and a portable Windows executable via Electron and GitHub Actions.
+- **Score import**: `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp8`, `.xml`, `.musicxml`, `.mxl`, `.cap` and `.tg`.
+- **Multi-track view**: show several tracks at once, each with its own mute, solo and volume controls.
+- **Audio engine**: a bundled SoundFont (`sonivox.sf2` / `sonivox.sf3`), backing tracks embedded in Guitar Pro files, and external audio files (`.mp3`, `.wav`, `.ogg`, `.m4a`, `.aac`, `.flac`, `.opus`, `.webm`) with a per-track millisecond offset.
+- **Audio mix modes**: selected tracks only, or the full band. A metronome can be enabled for playback and export.
+- **Live video preview**: switch between the sheet view and the rendered video view, and see setting changes immediately.
+- **Notation modes**: Score + Tab, Score only, Tab only.
+- **Layouts and camera**: vertical page layout or horizontal strip, with smooth scrolling or page-flip camera motion.
+- **Video themes**: Studio Paper, Concert Dark, Manuscript, Midnight Slate, plus a custom accent color.
+- **Overlays**: header, track names, measure HUD, progress bar and active beat highlight can each be turned on or off.
+- **Export presets**:
 
-## Prerequisites
+  | Setting | Options |
+    | --- | --- |
+  | Resolution | 1080p (1920×1080), 720p (1280×720), Vertical 9:16 (1080×1920), Square 1:1 (1080×1080) |
+  | Frame rate | 30 or 60 fps |
+  | Format | WebM or MP4 |
+  | Bar range | any start and end bar |
+  | Background | solid or transparent (transparent export is WebM only) |
 
-- **Node.js**: Version 20 or 22 LTS (recommended: Node 22)
-- **npm**: Bundled with Node.js
+- **Windows app**: NSIS installer and portable `.exe`, built with Electron and GitHub Actions.
+- **Update check**: the app checks GitHub Releases for a newer version and lists the version history.
 
-## Getting Started (Web Development)
+## Requirements
 
-1. Install dependencies:
+- **Node.js** 20.19+ or 22.12+ (Node 22 LTS recommended), required by Vite 8.
+- **npm**, bundled with Node.js.
+- **A Chromium-based browser** (Chrome, Edge) for video export. Export uses the WebCodecs API (`VideoEncoder`, `AudioEncoder`); the desktop app ships its own Chromium.
+
+## Getting Started
 
 ```bash
 npm install
-```
-
-2. Start the development server:
-
-```bash
 npm run dev
 ```
 
-3. Open your browser at:
+Open <http://localhost:3000>.
 
-```text
-http://localhost:3000
-```
-
-## Available Scripts
+## Scripts
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Starts the Vite development server on port `3000` |
+| `npm run dev` | Starts the Vite dev server on port 3000 |
 | `npm run build` | Builds the production web bundle into `dist/` |
-| `npm run preview` | Previews the built `dist/` bundle locally |
-| `npm run lint` | Runs TypeScript type-checking (`tsc --noEmit`) |
-| `npm run clean` | Removes generated `dist/` and `server.js` build outputs |
-| `npm run build:exe` | Builds `dist/` and packages Windows x64 `.exe` installers into `release/` |
+| `npm run preview` | Serves the built `dist/` bundle locally |
+| `npm run lint` | Type-checks the project (`tsc --noEmit`) |
+| `npm run clean` | Removes `dist/` |
+| `npm run build:exe` | Builds `dist/` and packages Windows x64 installers into `release/` |
 
-## Building the Web Bundle
+alphaTab's fonts (Bravura) and SoundFont files are copied from `node_modules` into `public/font/` and `public/soundfont/` automatically on every `dev` and `build` run. These folders are git-ignored; do not commit them.
 
-```bash
-npm run lint
-npm run build
-```
+## Desktop App (Windows `.exe`)
 
-To test the production build locally:
+`electron` and `electron-builder` are not listed in `package.json`, so web installs stay lightweight. Install them on demand.
 
-```bash
-npm run preview
-```
-
-## Running and Building the Windows Desktop App (`.exe`)
-
-`electron` and `electron-builder` are installed on demand so standard web installs remain lightweight.
-
-### Run Electron Locally in Development
+### Run Electron in development
 
 1. Start the Vite dev server in one terminal:
 
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
+   ```
 
-2. Install Electron (one-time, without modifying `package.json`) and launch the desktop window in another terminal:
+2. In another terminal, install Electron once without saving it to `package.json`:
 
-```bash
-npm install --no-save electron@35.1.5
-```
+   ```bash
+   npm install --no-save electron@35.1.5
+   ```
 
-On Windows PowerShell:
+3. Launch the desktop window.
 
-```powershell
-$env:ELECTRON_START_URL="http://localhost:3000"; npx electron .
-```
+   Windows PowerShell:
 
-On macOS / Linux:
+   ```powershell
+   $env:ELECTRON_START_URL="http://localhost:3000"; npx electron .
+   ```
 
-```bash
-ELECTRON_START_URL=http://localhost:3000 npx electron .
-```
+   macOS / Linux:
 
-### Build Windows `.exe` Locally
+   ```bash
+   ELECTRON_START_URL=http://localhost:3000 npx electron .
+   ```
 
-Run on Windows (or a configured Wine environment on Linux/macOS):
+Without `ELECTRON_START_URL`, Electron serves the built `dist/` folder from a local static server, so run `npm run build` first.
+
+### Build the `.exe` locally
+
+Run this on Windows, or on Linux/macOS with Wine:
 
 ```bash
 npm install
@@ -100,54 +98,68 @@ npm install --no-save electron@35.1.5 electron-builder@26.0.12
 npm run build:exe
 ```
 
-Generated executables will be placed in `release/`:
+The files appear in `release/`:
 
-- `ScoreFrame-1.0.0-win-x64-nsis.exe` (Windows installer)
-- `ScoreFrame-1.0.0-win-x64-portable.exe` (Portable standalone executable)
+- `ScoreFrame-<version>-win-x64-nsis.exe`: installer
+- `ScoreFrame-<version>-win-x64-portable.exe`: portable executable
 
-## Automated `.exe` Builds on GitHub
+### Build on GitHub Actions
 
-The repository includes `.github/workflows/build-exe.yml`, which automatically builds the Windows `.exe` files on `windows-latest`:
+`.github/workflows/build-exe.yml` builds both executables on `windows-latest`.
 
-1. Push your code to the `main` or `master` branch on GitHub (or trigger **Build Windows EXE** manually from the repository **Actions** tab).
-2. Wait for the `build-windows` job to finish.
-3. Download the `ScoreFrame-Windows-EXE` artifact from the workflow run summary.
-4. To publish a GitHub Release with the `.exe` files attached automatically, push a version tag:
+1. Push to `main` or `master`, or run **Build Windows EXE** manually from the **Actions** tab.
+2. Download the `ScoreFrame-Windows-EXE` artifact from the finished run.
+3. To publish a GitHub Release with the `.exe` files attached, push a version tag:
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+
+   The workflow sets `package.json` to the tag's version before building, so the version appears in the app, in the file name and in the `.exe` metadata.
 
 ## Project Structure
 
 ```text
 .
-├── .github/workflows/build-exe.yml
+├── .github/workflows/build-exe.yml   # Windows EXE build and release
 ├── electron/
-│   ├── main.cjs
-│   └── preload.cjs
-├── electron-builder.json
-├── LICENSE
-├── public/
+│   ├── main.cjs                      # Electron main process, local static server
+│   └── preload.cjs                   # scoreFrameDesktop bridge for the renderer
+├── public/                           # font/ and soundfont/ are generated, git-ignored
 ├── src/
-│   ├── components/
-│   ├── constants/
-│   ├── services/
-│   ├── types/
-│   ├── utils/
-│   └── App.tsx
+│   ├── components/                   # TopBar, TrackSidebar, TransportBar, VideoSettingsPanel,
+│   │                                 # VideoPreviewCanvas, ExportModal, DesktopBuildView
+│   ├── constants/                    # appInfo (version, links), themes (presets, palettes)
+│   ├── services/                     # videoRenderer, audioTrackPlayer, updateChecker
+│   ├── types/                        # shared TypeScript types
+│   ├── utils/                        # scoreUtils, soundFontLoader, gpZipAssets
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+├── electron-builder.json
+├── index.html
+├── LICENSE
 ├── package.json
+├── tsconfig.json
 └── vite.config.ts
 ```
 
-## Repository, Releases & Versioning
+## Built With
 
-- **Repository**: [https://github.com/Archibald-Lappline/GP2Video](https://github.com/Archibald-Lappline/GP2Video)
-- **Releases (Windows EXE)**: [https://github.com/Archibald-Lappline/GP2Video/releases](https://github.com/Archibald-Lappline/GP2Video/releases)
-- Updating `package.json` `"version"` or pushing a `v*` tag indexes the version into the web UI, `Windows EXE` Versions panel, and the Windows `.exe` binary metadata (`FileVersion`, `ProductVersion`, and output `.exe` filename).
+- [alphaTab](https://www.alphatab.net/): notation rendering and MIDI playback
+- [React](https://react.dev/), [Vite](https://vite.dev/) and [Tailwind CSS](https://tailwindcss.com/)
+- [mp4-muxer](https://github.com/Vanilagy/mp4-muxer) and [webm-muxer](https://github.com/Vanilagy/webm-muxer): video container output
+- [Electron](https://www.electronjs.org/) and electron-builder: desktop packaging
+- [Bravura](https://github.com/steinbergmedia/bravura) music font (SIL Open Font License) and the SONiVOX SoundFont; see `public/soundfont/README.md` after the first build for its notes
+
+## Repository and Releases
+
+- Repository: <https://github.com/Archibald-Lappline/GP2Video>
+- Releases: <https://github.com/Archibald-Lappline/GP2Video/releases>
+
+The version is read from `package.json`.
 
 ## License
 
-Licensed under the **PolyForm Noncommercial License 1.0.0** (`PolyForm-Noncommercial-1.0.0`). See [`LICENSE`](./LICENSE) or [https://polyformproject.org/licenses/noncommercial/1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0) for full terms.
-
+Licensed under the [PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0). See [`LICENSE`](./LICENSE) for the full terms.

@@ -22,14 +22,17 @@
     "target": [
       {
         "target": "nsis",
-        "arch": ["x64"]
+        "arch": [
+          "x64"
+        ]
       },
       {
         "target": "portable",
-        "arch": ["x64"]
+        "arch": [
+          "x64"
+        ]
       }
     ],
-    "artifactName": "${productName}-${version}-win-${arch}-${target}.${ext}",
     "legalTrademarks": "PolyForm-Noncommercial-1.0.0",
     "requestedExecutionLevel": "asInvoker"
   },
@@ -37,6 +40,10 @@
     "oneClick": false,
     "allowToChangeInstallationDirectory": true,
     "createDesktopShortcut": true,
-    "license": "LICENSE"
+    "license": "LICENSE",
+    "artifactName": "${productName}-${version}-win-${arch}-nsis.${ext}"
+  },
+  "portable": {
+    "artifactName": "${productName}-${version}-win-${arch}-portable.${ext}"
   }
 }
