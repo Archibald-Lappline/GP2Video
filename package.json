@@ -1,0 +1,43 @@
+{
+  "name": "scoreframe",
+  "private": true,
+  "version": "1.0.0",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "homepage": "https://github.com/Archibald-Lappline/GP2Video",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Archibald-Lappline/GP2Video.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Archibald-Lappline/GP2Video/issues"
+  },
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "lint": "tsc --noEmit",
+    "build:exe": "npm run build && electron-builder --win --x64 --config electron-builder.json"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.9.0",
+    "@coderline/alphatab-vite": "^1.9.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "lucide-react": "^0.546.0",
+    "mp4-muxer": "^5.2.2",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "vite": "^8.3.0",
+    "webm-muxer": "^5.1.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  }
+}

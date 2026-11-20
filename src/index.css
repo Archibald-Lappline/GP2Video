@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  :root {
+    --sf-accent: #e59838;
+  }
+
+  html,
+  body {
+    font-family: var(--font-sans);
+    background-color: #0b0d11;
+    color: #f3f4f6;
+  }
+}
+
+.at-cursor-bar {
+  background: color-mix(in srgb, var(--sf-accent, #e59838) 14%, transparent);
+}
+
+.at-cursor-beat {
+  background: var(--sf-accent, #e59838);
+  width: 3px;
+}
+
+.at-highlight * {
+  fill: var(--sf-accent, #e59838) !important;
+  stroke: var(--sf-accent, #e59838) !important;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.checkerboard-light {
+  background-color: #d4d8e0;
+  background-image:
+    linear-gradient(45deg, #b8bec9 25%, transparent 25%),
+    linear-gradient(-45deg, #b8bec9 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #b8bec9 75%),
+    linear-gradient(-45deg, transparent 75%, #b8bec9 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}
+
+.checkerboard-dark {
+  background-color: #161922;
+  background-image:
+    linear-gradient(45deg, #232836 25%, transparent 25%),
+    linear-gradient(-45deg, #232836 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #232836 75%),
+    linear-gradient(-45deg, transparent 75%, #232836 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}

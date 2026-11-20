@@ -1,0 +1,42 @@
+{
+  "appId": "com.scoreframe.studio",
+  "productName": "ScoreFrame",
+  "copyright": "PolyForm Noncommercial License 1.0.0",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "electron/**/*",
+    "package.json",
+    "LICENSE"
+  ],
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "Archibald-Lappline",
+      "repo": "GP2Video"
+    }
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64"]
+      }
+    ],
+    "artifactName": "${productName}-${version}-win-${arch}-${target}.${ext}",
+    "legalTrademarks": "PolyForm-Noncommercial-1.0.0",
+    "requestedExecutionLevel": "asInvoker"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "license": "LICENSE"
+  }
+}
