@@ -2,6 +2,8 @@
 
 ScoreFrame turns Guitar Pro and MusicXML scores into sheet music videos. It renders notation with [alphaTab](https://www.alphatab.net/), plays it back with a bundled SoundFont synthesizer and optional backing audio, and exports the result as a WebM or MP4 file. Everything runs locally in the browser or in a Windows desktop app built with Electron.
 
+<img width="720" height="405" alt="score frame gif" src="https://github.com/user-attachments/assets/884f6108-309a-4d99-8780-cc93c6cf0373" />
+
 ## Features
 
 - **Score import**: `.gp`, `.gp3`, `.gp4`, `.gp5`, `.gpx`, `.gp8`, `.xml`, `.musicxml`, `.mxl`, `.cap` and `.tg`.
