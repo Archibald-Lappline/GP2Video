@@ -1,7 +1,7 @@
 {
   "name": "scoreframe",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Multi-track Guitar Pro sheet music video generator with synchronized audio playback.",
   "author": "Archibald-Lappline",
   "license": "PolyForm-Noncommercial-1.0.0",
