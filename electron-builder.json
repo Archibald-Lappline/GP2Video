@@ -19,7 +19,7 @@
     }
   ],
   "win": {
-    "icon": "assets/logo.ico",
+    "icon": "assets/logo.png",
     "target": [
       {
         "target": "nsis",
